@@ -1,0 +1,5 @@
+node_modules/
+.claude/
+scrape-instagram.js
+scrape-posts.js
+assets/instagram-data.json

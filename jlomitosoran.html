@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>J Lomitos Orán — Fast Food & Cafetería de Especialidad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green-dark:  #1A5C3A;
+      --green-mid:   #2A7D52;
+      --green-light: #3DAA72;
+      --teal:        #00B8A9;
+      --teal-light:  #4DD9D0;
+      --white:       #FFFFFF;
+      --off-white:   #F2FAF7;
+      --text-dark:   #12291E;
+      --text-mid:    #2E5041;
+      --radius:      16px;
+      --shadow:      0 8px 40px rgba(0,0,0,0.12);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text-dark); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 70px;
+      background: rgba(26,92,58,0.97);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+    .nav-brand { display: flex; align-items: center; gap: .75rem; text-decoration: none; }
+    .nav-logo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.3); }
+    .nav-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--white); letter-spacing: .02em; }
+    .nav-name span { color: var(--teal-light); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: .9rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--teal-light); }
+    .nav-cta { background: var(--teal) !important; color: var(--white) !important; padding: .45rem 1.2rem; border-radius: 50px; transition: background .2s, transform .2s !important; }
+    .nav-cta:hover { background: var(--teal-light) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: white; border-radius: 2px; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 55%, var(--teal) 100%);
+      padding: 100px 5% 60px; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='20' cy='20' r='10'/%3E%3Ccircle cx='60' cy='60' r='10'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center; max-width: 1200px; width: 100%;
+    }
+    .hero-text { color: var(--white); }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 50px; padding: .4rem 1rem;
+      font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--teal-light); margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      line-height: 1.08; margin-bottom: 1.2rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+    .hero h1 em { color: var(--teal-light); font-style: normal; }
+    .hero-sub { font-size: 1.05rem; font-weight: 300; line-height: 1.7; opacity: .9; margin-bottom: 2rem; }
+    .hero-pills { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 2.5rem; }
+    .pill { background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.2); border-radius: 50px; padding: .3rem .9rem; font-size: .82rem; font-weight: 500; color: var(--white); }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--teal); color: var(--white); padding: .85rem 2rem;
+      border-radius: 50px; font-weight: 700; font-size: .95rem;
+      text-decoration: none; display: inline-flex; align-items: center; gap: .5rem;
+      box-shadow: 0 6px 24px rgba(0,184,169,.45); transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(0,184,169,.55); }
+    .btn-secondary {
+      background: rgba(255,255,255,0.12); border: 2px solid rgba(255,255,255,0.4);
+      color: var(--white); padding: .85rem 2rem; border-radius: 50px;
+      font-weight: 600; font-size: .95rem; text-decoration: none;
+      display: inline-flex; align-items: center; gap: .5rem; transition: background .2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.22); }
+
+    /* Instagram card */
+    .hero-instagram {
+      background: rgba(255,255,255,0.1); backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.2); border-radius: 24px;
+      overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .ig-card-header {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.2rem 1.4rem;
+      background: rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .ig-avatar-wrap { position: relative; flex-shrink: 0; }
+    .ig-avatar {
+      width: 56px; height: 56px; border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--teal-light);
+    }
+    .ig-avatar-fallback {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal-light), var(--green-light));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; border: 3px solid var(--teal-light);
+    }
+    .ig-info { flex: 1; min-width: 0; }
+    .ig-handle { color: var(--white); font-weight: 700; font-size: 1rem; display: flex; align-items: center; gap: .4rem; }
+    .ig-verified { width: 16px; height: 16px; background: var(--teal-light); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: .6rem; color: var(--green-dark); font-weight: 900; flex-shrink: 0; }
+    .ig-category { color: rgba(255,255,255,0.6); font-size: .78rem; margin-top: .15rem; }
+    .ig-logo-icon { font-size: 1.6rem; opacity: .85; }
+
+    .ig-stats { display: grid; grid-template-columns: repeat(3,1fr); text-align: center; padding: 1rem 1.4rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .ig-stat-num { color: var(--white); font-weight: 800; font-size: 1.15rem; }
+    .ig-stat-label { color: rgba(255,255,255,0.6); font-size: .7rem; text-transform: uppercase; letter-spacing: .06em; margin-top: .1rem; }
+
+    .ig-bio { padding: .9rem 1.4rem; color: rgba(255,255,255,0.85); font-size: .83rem; line-height: 1.6; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .ig-bio strong { color: var(--teal-light); display: block; margin-bottom: .25rem; }
+
+    .ig-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 3px; }
+    .ig-thumb {
+      aspect-ratio: 1; overflow: hidden; position: relative; display: block;
+      text-decoration: none;
+    }
+    .ig-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; display: block; }
+    .ig-thumb:hover img { transform: scale(1.08); }
+    .ig-thumb-overlay {
+      position: absolute; inset: 0; background: rgba(0,184,169,.5);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: .2s; font-size: .8rem; color: white; font-weight: 700;
+    }
+    .ig-thumb:hover .ig-thumb-overlay { opacity: 1; }
+
+    .ig-follow-btn {
+      display: block; margin: 1rem 1.4rem 1.4rem;
+      background: var(--teal); color: var(--white);
+      border-radius: 10px; padding: .75rem;
+      font-weight: 700; font-size: .9rem; text-align: center; text-decoration: none;
+      transition: background .2s;
+    }
+    .ig-follow-btn:hover { background: var(--teal-light); color: var(--green-dark); }
+
+    /* ── STATS ── */
+    .stats-strip { background: var(--green-dark); padding: 2rem 5%; display: flex; justify-content: center; }
+    .stats-inner { display: flex; max-width: 900px; width: 100%; border-radius: var(--radius); overflow: hidden; background: rgba(255,255,255,0.06); }
+    .stat-item { flex: 1; text-align: center; padding: 1.8rem 1rem; color: var(--white); border-right: 1px solid rgba(255,255,255,0.1); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.1rem; font-weight: 900; color: var(--teal-light); line-height: 1; }
+    .stat-label { font-size: .75rem; opacity: .7; margin-top: .4rem; text-transform: uppercase; letter-spacing: .06em; }
+
+    /* ── SHARED SECTION ── */
+    section { padding: 90px 5%; }
+    .section-tag { display: inline-block; background: rgba(0,184,169,.12); color: var(--teal); font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: .35rem .9rem; border-radius: 50px; margin-bottom: 1rem; border: 1px solid rgba(0,184,169,.25); }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem,4vw,3rem); color: var(--text-dark); line-height: 1.15; margin-bottom: 1rem; }
+    .section-title em { color: var(--teal); font-style: normal; }
+    .section-sub { color: var(--text-mid); font-size: 1rem; line-height: 1.7; max-width: 560px; margin-bottom: 3rem; }
+
+    /* ── MENÚ ── */
+    .menu-section { background: var(--off-white); }
+    .menu-header { text-align: center; }
+    .menu-header .section-sub { margin: 0 auto 3.5rem; }
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
+    .menu-card {
+      background: var(--white); border-radius: var(--radius); padding: 2rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,.07); border: 1px solid rgba(0,0,0,.05);
+      position: relative; overflow: hidden; transition: transform .25s, box-shadow .25s;
+    }
+    .menu-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--green-mid), var(--teal)); }
+    .menu-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,.12); }
+    .menu-icon { font-size: 2.8rem; margin-bottom: 1rem; display: block; }
+    .menu-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--text-dark); margin-bottom: .6rem; }
+    .menu-desc { font-size: .88rem; color: var(--text-mid); line-height: 1.6; }
+    .menu-items { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.1rem; }
+    .menu-tag { background: var(--off-white); color: var(--green-mid); border: 1px solid rgba(42,125,82,.2); font-size: .75rem; font-weight: 600; padding: .25rem .7rem; border-radius: 50px; }
+
+    /* ── MENÚ TABS ── */
+    .menu-tabs-wrap { overflow-x: auto; margin-bottom: 2.5rem; -webkit-overflow-scrolling: touch; }
+    .menu-tabs-wrap::-webkit-scrollbar { height: 4px; }
+    .menu-tabs-wrap::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 4px; }
+    .menu-tabs { display: flex; gap: .6rem; padding-bottom: .5rem; min-width: max-content; margin: 0 auto; justify-content: center; }
+    .tab-btn {
+      background: var(--white); border: 2px solid rgba(42,125,82,.2);
+      color: var(--text-mid); border-radius: 50px;
+      padding: .55rem 1.3rem; font-size: .88rem; font-weight: 600;
+      cursor: pointer; transition: all .2s; white-space: nowrap;
+    }
+    .tab-btn:hover { border-color: var(--teal); color: var(--teal); }
+    .tab-btn.active { background: var(--green-dark); border-color: var(--green-dark); color: var(--white); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 1rem; max-width: 1200px; margin: 0 auto; }
+    .product-card {
+      background: var(--white); border-radius: 14px; padding: 1.2rem 1.4rem;
+      border: 1px solid rgba(0,0,0,.07); box-shadow: 0 2px 12px rgba(0,0,0,.05);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .product-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.1); }
+    .product-card.featured { border-color: rgba(0,184,169,.3); background: linear-gradient(135deg, #f2faf7 0%, #fff 100%); }
+    .product-header { display: flex; align-items: flex-start; gap: .9rem; }
+    .product-icon { font-size: 1.8rem; flex-shrink: 0; margin-top: .1rem; }
+    .product-name { font-weight: 700; font-size: .95rem; color: var(--text-dark); margin-bottom: .25rem; }
+    .product-desc { font-size: .8rem; color: var(--text-mid); line-height: 1.5; }
+    .badge-star { font-size: .7rem; background: var(--teal); color: white; border-radius: 50px; padding: .15rem .5rem; margin-left: .3rem; font-weight: 600; vertical-align: middle; }
+    .tab-note { max-width: 1200px; margin: 1.5rem auto 0; text-align: center; font-size: .88rem; color: var(--text-mid); padding: 1rem; background: var(--off-white); border-radius: 10px; }
+    .tab-note a { color: var(--teal); font-weight: 600; text-decoration: none; }
+
+    /* ── GALERÍA ── */
+    .gallery-section { background: var(--white); }
+    .gallery-header { text-align: center; }
+    .gallery-header .section-sub { margin: 0 auto 3rem; }
+    .gallery-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto;
+      gap: 10px;
+    }
+    .gallery-item {
+      overflow: hidden; border-radius: 12px;
+      position: relative; display: block;
+      text-decoration: none; background: var(--off-white);
+    }
+    .gallery-item.tall { grid-row: span 2; }
+    .gallery-item.wide { grid-column: span 2; }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; transition: transform .35s ease;
+      min-height: 200px;
+    }
+    .gallery-item.tall img { min-height: 420px; }
+    .gallery-item.wide img { min-height: 260px; }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(26,92,58,.8) 0%, transparent 60%);
+      opacity: 0; transition: .3s; display: flex; align-items: flex-end; padding: 1.2rem;
+    }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay-text { color: var(--white); font-size: .82rem; font-weight: 600; display: flex; align-items: center; gap: .4rem; }
+    .gallery-cta {
+      text-align: center; margin-top: 2.5rem;
+    }
+    .btn-ig {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: linear-gradient(135deg, #f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+      color: white; text-decoration: none; padding: .9rem 2.2rem; border-radius: 50px;
+      font-weight: 700; font-size: .95rem;
+      box-shadow: 0 6px 24px rgba(220,39,67,.35); transition: transform .2s, box-shadow .2s;
+    }
+    .btn-ig:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(220,39,67,.45); }
+
+    /* ── HORARIO Y CONTACTO ── */
+    .horario-section { background: var(--off-white); }
+    .horario-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .horario-card { background: var(--white); border-radius: var(--radius); padding: 2.5rem; box-shadow: 0 4px 24px rgba(0,0,0,.07); }
+    .horario-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 1.5rem; color: var(--text-dark); }
+    .horario-row { display: flex; justify-content: space-between; align-items: center; padding: .9rem 0; border-bottom: 1px solid var(--off-white); }
+    .horario-row:last-child { border-bottom: none; }
+    .horario-dia { font-weight: 600; color: var(--text-dark); font-size: .9rem; }
+    .horario-tiempo { font-size: .82rem; color: var(--green-mid); background: rgba(42,125,82,.1); border-radius: 50px; padding: .3rem .8rem; font-weight: 600; }
+    .open-badge { display: inline-flex; align-items: center; gap: .5rem; background: rgba(0,184,169,.12); color: var(--teal); border: 1px solid rgba(0,184,169,.3); border-radius: 50px; padding: .5rem 1.2rem; font-weight: 700; font-size: .85rem; margin-top: 1.5rem; }
+    .open-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); animation: blink 1.4s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    .contact-items { display: flex; flex-direction: column; gap: 1.2rem; }
+    .contact-item { display: flex; align-items: center; gap: 1.2rem; padding: 1.4rem; background: var(--white); border-radius: 14px; box-shadow: 0 2px 16px rgba(0,0,0,.06); text-decoration: none; color: inherit; border: 1px solid rgba(0,0,0,.04); transition: transform .2s, box-shadow .2s; }
+    .contact-item:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,.1); }
+    .contact-icon { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .ci-green { background: rgba(42,125,82,.12); }
+    .ci-teal  { background: rgba(0,184,169,.12); }
+    .ci-wa    { background: rgba(37,211,102,.12); }
+    .contact-info strong { display: block; font-weight: 700; font-size: .95rem; color: var(--text-dark); }
+    .contact-info span   { font-size: .83rem; color: var(--text-mid); }
+
+    /* ── MAPA ── */
+    .map-strip { background: var(--green-dark); padding: 4rem 5%; text-align: center; color: var(--white); }
+    .map-strip h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: .6rem; }
+    .map-strip p { opacity: .75; font-size: .95rem; margin-bottom: 2rem; }
+    .map-container { max-width: 900px; margin: 0 auto; border-radius: var(--radius); overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.4); border: 3px solid rgba(255,255,255,.15); }
+    .map-container iframe { display: block; width: 100%; height: 360px; }
+
+    /* ── CTA ── */
+    .cta-band { background: linear-gradient(135deg, var(--teal) 0%, var(--green-mid) 100%); padding: 80px 5%; text-align: center; color: var(--white); }
+    .cta-band h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem,3.5vw,2.8rem); margin-bottom: 1rem; }
+    .cta-band p { font-size: 1rem; opacity: .9; margin-bottom: 2.5rem; }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .cta-wa { background: #25D366; color: white; padding: .9rem 2.2rem; border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: .6rem; font-size: 1rem; box-shadow: 0 6px 24px rgba(37,211,102,.4); transition: transform .2s; }
+    .cta-wa:hover { transform: translateY(-2px); }
+    .cta-ig2 { background: rgba(255,255,255,.15); border: 2px solid rgba(255,255,255,.5); color: white; padding: .9rem 2.2rem; border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: .6rem; font-size: 1rem; transition: background .2s; }
+    .cta-ig2:hover { background: rgba(255,255,255,.25); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--text-dark); color: rgba(255,255,255,.7); padding: 3rem 5% 2rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; }
+    .footer-brand-wrap { display: flex; align-items: center; gap: .75rem; margin-bottom: .8rem; }
+    .footer-logo { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,.2); }
+    .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: white; }
+    .footer-brand span { color: var(--teal-light); }
+    .footer-desc { font-size: .85rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .footer-social { display: flex; gap: .8rem; }
+    .footer-social a { width: 38px; height: 38px; border-radius: 10px; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1rem; transition: background .2s; }
+    .footer-social a:hover { background: var(--teal); }
+    .footer-col h4 { color: white; font-size: .85rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 1.2rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+    .footer-col li { font-size: .84rem; }
+    .footer-col li::before { content: '→ '; color: var(--teal); font-weight: 700; }
+    .footer-bottom { max-width: 1200px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.08); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; font-size: .8rem; }
+
+    /* ── WHATSAPP FLOTANTE ── */
+    .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 200; width: 60px; height: 60px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; box-shadow: 0 6px 28px rgba(37,211,102,.5); text-decoration: none; animation: floatBtn 3s ease-in-out infinite; }
+    .wa-float:hover { transform: scale(1.1) !important; }
+    @keyframes floatBtn { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+    .wa-tooltip { position: fixed; bottom: 40px; right: 100px; z-index: 199; background: var(--text-dark); color: white; font-size: .8rem; font-weight: 600; padding: .5rem .9rem; border-radius: 8px; opacity: 0; pointer-events: none; transition: opacity .2s; white-space: nowrap; }
+    .wa-float:hover ~ .wa-tooltip { opacity: 1; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+      .gallery-item.wide { grid-column: span 1; }
+    }
+    @media (max-width: 900px) {
+      .hero-content { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-instagram { max-width: 420px; margin: 0 auto; }
+      .horario-inner { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .stats-inner { flex-wrap: wrap; }
+      .stat-item { min-width: 45%; border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item.tall { grid-row: span 1; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2.3rem; }
+      .hero-btns, .cta-btns { flex-direction: column; align-items: flex-start; }
+      .cta-btns { align-items: center; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#inicio">
+    <img class="nav-logo" src="assets/Logo J.jpg" alt="J Lomitos Orán Logo" onerror="this.style.display='none'" />
+    <span class="nav-name">J <span>Lomitos</span> Orán</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menú</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="https://wa.me/543878568834" class="nav-cta" target="_blank">📲 Pedí ahora</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge">⭐ Orán, Salta · Argentina</div>
+      <h1>Comida que<br/><em>enamora</em>,<br/>café que inspira</h1>
+      <p class="hero-sub">Lomitos, hamburguesas y minutas al plato con ingredientes frescos. Cafetería de especialidad, licuados, copas heladas y tostados artesanales.</p>
+      <div class="hero-pills">
+        <span class="pill">🥩 Lomitos</span>
+        <span class="pill">🍔 Hamburguesas</span>
+        <span class="pill">☕ Café Especialidad</span>
+        <span class="pill">🥤 Licuados & Jugos</span>
+        <span class="pill">🍨 Copas Heladas</span>
+        <span class="pill">🥪 Tostados</span>
+      </div>
+      <div class="hero-btns">
+        <a href="https://wa.me/543878568834?text=Hola!%20Quiero%20hacer%20un%20pedido" class="btn-primary" target="_blank">📲 Pedí por WhatsApp</a>
+        <a href="#menu" class="btn-secondary">Ver menú ↓</a>
+      </div>
+    </div>
+
+    <!-- Instagram Card con fotos reales -->
+    <div class="hero-instagram">
+      <div class="ig-card-header">
+        <div class="ig-avatar-wrap">
+          <img class="ig-avatar" src="assets/profile.jpg" alt="J Lomitos Orán"
+               onerror="this.outerHTML='<div class=\'ig-avatar-fallback\'>🥩</div>'" />
+        </div>
+        <div class="ig-info">
+          <div class="ig-handle">
+            @jlomitosoran
+            <span class="ig-verified">✓</span>
+          </div>
+          <div class="ig-category">Fast Food · Cafetería de Especialidad</div>
+        </div>
+        <span class="ig-logo-icon">📸</span>
+      </div>
+
+      <div class="ig-stats">
+        <div>
+          <div class="ig-stat-num">+200</div>
+          <div class="ig-stat-label">Publicaciones</div>
+        </div>
+        <div>
+          <div class="ig-stat-num">Orán</div>
+          <div class="ig-stat-label">Salta, ARG</div>
+        </div>
+        <div>
+          <div class="ig-stat-num">7/7</div>
+          <div class="ig-stat-label">Días abiertos</div>
+        </div>
+      </div>
+
+      <div class="ig-bio">
+        <strong>🥩 J Lomitos Orán · Fast Food & Café</strong>
+        Lomitos · Hamburguesas · Minutas · Cafetería de especialidad<br/>
+        Licuados · Copas heladas · Tostados artesanales<br/>
+        📍 Egues 270, Orán · 🕗 8:00–12:30 | 17:30–01:00
+      </div>
+
+      <!-- Grid con fotos REALES de Instagram -->
+      <div class="ig-grid">
+        <a class="ig-thumb" href="https://www.instagram.com/jlomitosoran/" target="_blank">
+          <img src="assets/instagram/post_01.jpg" alt="Nuggets y papas" loading="lazy" />
+          <div class="ig-thumb-overlay">📸 Ver</div>
+        </a>
+        <a class="ig-thumb" href="https://www.instagram.com/p/C5ZhTq5MvEM/" target="_blank">
+          <img src="assets/instagram/gallery_02.jpg" alt="Hamburguesa" loading="lazy" />
+          <div class="ig-thumb-overlay">📸 Ver</div>
+        </a>
+        <a class="ig-thumb" href="https://www.instagram.com/p/C6EWWfisPKd/" target="_blank">
+          <img src="assets/instagram/gallery_01.jpg" alt="Lomito J" loading="lazy" />
+          <div class="ig-thumb-overlay">📸 Ver</div>
+        </a>
+        <a class="ig-thumb" href="https://www.instagram.com/jlomitosoran/" target="_blank">
+          <img src="assets/instagram/post_12.jpg" alt="Pancakes con frutas" loading="lazy" />
+          <div class="ig-thumb-overlay">📸 Ver</div>
+        </a>
+        <a class="ig-thumb" href="https://www.instagram.com/p/C9Q3-Pap5KY/" target="_blank">
+          <img src="assets/instagram/gallery_06.jpg" alt="Copa Mega Choco" loading="lazy" />
+          <div class="ig-thumb-overlay">📸 Ver</div>
+        </a>
+        <a class="ig-thumb" href="https://www.instagram.com/p/C5MreprMz8V/" target="_blank">
+          <img src="assets/instagram/gallery_04.jpg" alt="Banana Split" loading="lazy" />
+          <div class="ig-thumb-overlay">📸 Ver</div>
+        </a>
+      </div>
+
+      <a href="https://www.instagram.com/jlomitosoran/" class="ig-follow-btn" target="_blank">
+        📸 Ver perfil completo en Instagram
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num">7</div>
+      <div class="stat-label">Días a la semana</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">17hs</div>
+      <div class="stat-label">De apertura por día</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">6</div>
+      <div class="stat-label">Categorías en menú</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">📍</div>
+      <div class="stat-label">Egues 270 · Orán</div>
+    </div>
+  </div>
+</div>
+
+<!-- GALERÍA con fotos reales -->
+<section class="gallery-section" id="galeria">
+  <div class="gallery-header">
+    <span class="section-tag">Nuestras fotos</span>
+    <h2 class="section-title">El <em>local</em> y los platos</h2>
+    <p class="section-sub">Fotos reales de nuestro Instagram. Lo que ves es lo que te llega.</p>
+  </div>
+
+  <div class="gallery-grid" style="max-width:1200px; margin: 0 auto;">
+
+    <!-- Fila 1 -->
+    <a class="gallery-item tall" href="https://www.instagram.com/jlomitosoran/" target="_blank">
+      <img src="assets/instagram/post_01.jpg" alt="Nuggets con papas y salsas" />
+      <div class="gallery-overlay"><span class="gallery-overlay-text">🍗 Nuggets & Papas</span></div>
+    </a>
+    <a class="gallery-item" href="https://www.instagram.com/jlomitosoran/" target="_blank">
+      <img src="assets/instagram/post_12.jpg" alt="Pancakes con frutas" />
+      <div class="gallery-overlay"><span class="gallery-overlay-text">🥞 Pancakes con frutas</span></div>
+    </a>
+    <a class="gallery-item" href="https://www.instagram.com/p/C6EWWfisPKd/" target="_blank">
+      <img src="assets/instagram/gallery_01.jpg" alt="Lomito J con papas" />
+      <div class="gallery-overlay"><span class="gallery-overlay-text">🥩 Lomito J</span></div>
+    </a>
+    <a class="gallery-item tall" href="https://www.instagram.com/p/C5ZhTq5MvEM/" target="_blank">
+      <img src="assets/instagram/gallery_02.jpg" alt="Hamburguesa con papas" />
+      <div class="gallery-overlay"><span class="gallery-overlay-text">🍔 Hamburguesa</span></div>
+    </a>
+
+    <!-- Fila 2 -->
+    <a class="gallery-item wide" href="https://www.instagram.com/p/C5HkGozsnQ3/" target="_blank">
+      <img src="assets/instagram/gallery_03.jpg" alt="Milanesa cortada" />
+      <div class="gallery-overlay"><span class="gallery-overlay-text">🍞 Milanesa / Lomito</span></div>
+    </a>
+
+    <!-- Fila 3 -->
+    <a class="gallery-item" href="https://www.instagram.com/p/C5MreprMz8V/" target="_blank">
+      <img src="assets/instagram/gallery_04.jpg" alt="Banana Split" />
+      <div class="gallery-overlay"><span class="gallery-overlay-text">🍌 Banana Split</span></div>
+    </a>
+    <a class="gallery-item" href="https://www.instagram.com/p/C5BpRktpmhF/" target="_blank">
+      <img src="assets/instagram/gallery_05.jpg" alt="Licuados y tostados" />
+      <div class="gallery-overlay"><span class="gallery-overlay-text">🥤 Licuados & Tostados</span></div>
+    </a>
+    <a class="gallery-item" href="https://www.instagram.com/p/C9Q3-Pap5KY/" target="_blank">
+      <img src="assets/instagram/gallery_06.jpg" alt="Copa helada Mega Choco" />
+      <div class="gallery-overlay"><span class="gallery-overlay-text">🍨 Copa Mega Choco</span></div>
+    </a>
+    <a class="gallery-item" href="https://www.instagram.com/jlomitosoran/" target="_blank">
+      <img src="assets/instagram/post_07.jpg" alt="Eventos especiales" />
+      <div class="gallery-overlay"><span class="gallery-overlay-text">🎉 Eventos especiales</span></div>
+    </a>
+  </div>
+
+  <div class="gallery-cta">
+    <a href="https://www.instagram.com/jlomitosoran/" class="btn-ig" target="_blank">
+      📸 Ver todos los posts en @jlomitosoran
+    </a>
+  </div>
+</section>
+
+<!-- MENÚ -->
+<section class="menu-section" id="menu">
+  <div class="menu-header">
+    <span class="section-tag">Nuestra carta completa</span>
+    <h2 class="section-title">Un menú para cada <em>momento</em></h2>
+    <p class="section-sub">Desde el café de la mañana hasta la cena de medianoche. Más de 100 opciones para todos los gustos.</p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="menu-tabs-wrap">
+    <div class="menu-tabs" id="menuTabs">
+      <button class="tab-btn active" onclick="showTab('lomitos',this)">🥩 Lomitos</button>
+      <button class="tab-btn" onclick="showTab('hamburguesas',this)">🍔 Hamburguesas</button>
+      <button class="tab-btn" onclick="showTab('papas',this)">🍟 Papas</button>
+      <button class="tab-btn" onclick="showTab('plato',this)">🍳 Al Plato</button>
+      <button class="tab-btn" onclick="showTab('cafeteria',this)">☕ Cafetería</button>
+      <button class="tab-btn" onclick="showTab('copas',this)">🍨 Copas Heladas</button>
+      <button class="tab-btn" onclick="showTab('licuados',this)">🥤 Licuados</button>
+      <button class="tab-btn" onclick="showTab('tostados',this)">🥪 Tostados</button>
+      <button class="tab-btn" onclick="showTab('promos',this)">🎉 Promos</button>
+    </div>
+  </div>
+
+  <!-- LOMITOS & SÁNDWICHES -->
+  <div class="tab-panel active" id="tab-lomitos">
+    <div class="product-grid">
+      <div class="product-card featured">
+        <div class="product-header"><span class="product-icon">🥩</span><div><div class="product-name">Lomito J <span class="badge-star">⭐ Especial</span></div><div class="product-desc">Pan francés, carne, lechuga, tomate, huevo, jamón, queso, cebolla caramelizada, cheddar y panceta</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥩</span><div><div class="product-name">Lomito</div><div class="product-desc">Pan francés, carne, lechuga, tomate, huevo, jamón, queso</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥩</span><div><div class="product-name">Lomito con Roquefort</div><div class="product-desc">Pan francés, carne, lechuga, tomate, huevo, jamón, queso y roquefort</div></div></div>
+      </div>
+      <div class="product-card featured">
+        <div class="product-header"><span class="product-icon">🍞</span><div><div class="product-name">Milanesa J <span class="badge-star">⭐ Especial</span></div><div class="product-desc">Pan francés, milanesa, lechuga, tomate, huevo, jamón, queso, cebolla caramelizada, cheddar y panceta</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍞</span><div><div class="product-name">Milanesa</div><div class="product-desc">Pan francés, milanesa, lechuga, tomate, huevo, jamón, queso</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍞</span><div><div class="product-name">Milanesa con Roquefort</div><div class="product-desc">Pan francés, milanesa, lechuga, tomate, huevo, jamón, queso y roquefort</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥖</span><div><div class="product-name">Charly Gratinado</div><div class="product-desc">Pan de miga, lomo, tomate, lechuga, huevo, jamón, queso</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥖</span><div><div class="product-name">Mega Charly</div><div class="product-desc">Versión grande del Charly gratinado</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥖</span><div><div class="product-name">Desmechado</div><div class="product-desc">Pan de baguette, roast beef desmechado, lechuga, tomate</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥖</span><div><div class="product-name">Golpeadito Cena</div><div class="product-desc">Pan de hamb, peceto en salsa inglesa, huevo, queso, tomate</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HAMBURGUESAS -->
+  <div class="tab-panel" id="tab-hamburguesas">
+    <div class="product-grid">
+      <div class="product-card featured">
+        <div class="product-header"><span class="product-icon">🍔</span><div><div class="product-name">Triple J <span class="badge-star">⭐ La más grande</span></div><div class="product-desc">Tres medallones de carne, huevo, tomate, lechuga, jamón, queso, cebolla caramelizada, cheddar, panceta</div></div></div>
+      </div>
+      <div class="product-card featured">
+        <div class="product-header"><span class="product-icon">🍔</span><div><div class="product-name">Doble Bacon</div><div class="product-desc">Dos medallones de carne, huevo, tomate, lechuga, jamón, queso, cebolla caramelizada, cheddar, panceta</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍔</span><div><div class="product-name">Fussion</div><div class="product-desc">Dos medallones de carne, huevo, tomate, lechuga, jamón, queso, cebolla caramelizada, cheddar</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍔</span><div><div class="product-name">Bacon</div><div class="product-desc">Un medallón de carne, huevo, tomate, lechuga, jamón, queso, cebolla caramelizada, cheddar</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍔</span><div><div class="product-name">Bacon Bañada</div><div class="product-desc">Hamburguesa Bacon con baño especial de la casa</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍔</span><div><div class="product-name">Cheddar</div><div class="product-desc">Un medallón de carne, huevo, tomate, lechuga, jamón, queso, cebolla caramelizada, cheddar</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍔</span><div><div class="product-name">Clásica</div><div class="product-desc">Un medallón de carne, huevo, tomate, lechuga, jamón, queso</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍔</span><div><div class="product-name">Super Paty</div><div class="product-desc">Paty, huevo, tomate, lechuga, jamón, queso</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAPAS -->
+  <div class="tab-panel" id="tab-papas">
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍟</span><div><div class="product-name">Porción de Papas</div><div class="product-desc">Papas fritas doradas y crocantes</div></div></div>
+      </div>
+      <div class="product-card featured">
+        <div class="product-header"><span class="product-icon">🍟</span><div><div class="product-name">Papas con Cheddar y Bacon</div><div class="product-desc">Papas fritas bañadas en cheddar con panceta crocante</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍟</span><div><div class="product-name">Papas Gratinadas</div><div class="product-desc">Papas fritas gratinadas con queso derretido</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍟</span><div><div class="product-name">Papas con Huevo Revuelto</div><div class="product-desc">Papas fritas con huevo revuelto encima</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍟</span><div><div class="product-name">Salchipapas</div><div class="product-desc">Papas fritas con salchicha, salsas a elección</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AL PLATO -->
+  <div class="tab-panel" id="tab-plato">
+    <div class="product-grid">
+      <div class="product-card featured">
+        <div class="product-header"><span class="product-icon">🍳</span><div><div class="product-name">Napolitana J <span class="badge-star">⭐ Especial</span></div><div class="product-desc">Milanesa, salsa de tomate, jamón, queso, cheddar, panceta, huevo, papas, cebolla caramelizada</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍳</span><div><div class="product-name">Milanesa Napolitana</div><div class="product-desc">Milanesa, salsa de tomate, jamón, queso, huevo, papas</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍳</span><div><div class="product-name">Napolitana al Roquefort</div><div class="product-desc">Milanesa, salsa de tomate, jamón, queso, Roquefort, huevo, papas</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍳</span><div><div class="product-name">Napolitana Calabresa</div><div class="product-desc">Milanesa, salsa, jamón, queso, rodajas de longaniza, huevo, papas</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍳</span><div><div class="product-name">Milanesa a Caballo</div><div class="product-desc">Milanesa, huevo, papas fritas</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥩</span><div><div class="product-name">Lomo al Champiñón</div><div class="product-desc">Lomo al plato con salsa de champiñones</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥩</span><div><div class="product-name">Lomo al Plato</div><div class="product-desc">Lomo al plato con guarnición</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥩</span><div><div class="product-name">Lomo al Roquefort</div><div class="product-desc">Lomo al plato con salsa de roquefort</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍗</span><div><div class="product-name">Nuggets con Papas y Salsas</div><div class="product-desc">Nuggets crocantes con papas fritas y salsas a elección</div></div></div>
+      </div>
+    </div>
+    <p class="tab-note">💡 Todos los platos disponibles en porción <strong>Para 1</strong> o <strong>Para 2</strong></p>
+  </div>
+
+  <!-- CAFETERÍA -->
+  <div class="tab-panel" id="tab-cafeteria">
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">☕</span><div><div class="product-name">Café</div><div class="product-desc">Café de especialidad</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">☕</span><div><div class="product-name">Café con Leche</div><div class="product-desc">Café con leche cremoso</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">☕</span><div><div class="product-name">Capuchino</div><div class="product-desc">Cappuccino con espuma de leche</div></div></div>
+      </div>
+      <div class="product-card featured">
+        <div class="product-header"><span class="product-icon">☕</span><div><div class="product-name">Capuchino Italiano</div><div class="product-desc">Cappuccino estilo italiano</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">☕</span><div><div class="product-name">Cortado</div><div class="product-desc">Espresso con un toque de leche</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">☕</span><div><div class="product-name">Lágrima</div><div class="product-desc">Leche caliente con un toque de café</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍫</span><div><div class="product-name">Submarino</div><div class="product-desc">Leche caliente con chocolate en barra</div></div></div>
+      </div>
+      <div class="product-card featured">
+        <div class="product-header"><span class="product-icon">☕</span><div><div class="product-name">Affogato</div><div class="product-desc">Espresso vertido sobre helado de vainilla</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍵</span><div><div class="product-name">Infusiones</div><div class="product-desc">Té, manzanilla, menta y más</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COPAS HELADAS -->
+  <div class="tab-panel" id="tab-copas">
+    <div class="product-grid">
+      <div class="product-card featured">
+        <div class="product-header"><span class="product-icon">🍨</span><div><div class="product-name">Mega Choco <span class="badge-star">⭐ Favorita</span></div><div class="product-desc">Copa de helado de chocolate con salsa, crema, toppings y chocolates</div></div></div>
+      </div>
+      <div class="product-card featured">
+        <div class="product-header"><span class="product-icon">🍌</span><div><div class="product-name">Banana Split</div><div class="product-desc">Banana, helado de varios sabores, crema, salsa de chocolate y toppings</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍨</span><div><div class="product-name">Mega Tropical</div><div class="product-desc">Copa tropical con frutas, helado y salsa</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍨</span><div><div class="product-name">Mega Candy</div><div class="product-desc">Copa de helado con cobertura de golosinas</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍪</span><div><div class="product-name">Oreo</div><div class="product-desc">Helado con galletas Oreo, crema y salsa</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍫</span><div><div class="product-name">Cofler</div><div class="product-desc">Copa de helado con Cofler y chocolate</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍓</span><div><div class="product-name">Frutal</div><div class="product-desc">Copa con frutas frescas y helado</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍬</span><div><div class="product-name">Candy</div><div class="product-desc">Copa de helado con cobertura de dulces</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LICUADOS & BATIDOS -->
+  <div class="tab-panel" id="tab-licuados">
+    <div class="product-grid">
+      <div class="product-card featured">
+        <div class="product-header"><span class="product-icon">🥤</span><div><div class="product-name">Milkshake Dubai <span class="badge-star">⭐ Nuevo</span></div><div class="product-desc">Batido de helado de pistacho con leche, crema, salsa, pistacho triturado y toppings</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥤</span><div><div class="product-name">Milkshake con Nutella</div><div class="product-desc">Batido de helado de vainilla con leche y nutella, crema, salsa y toppings</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥤</span><div><div class="product-name">Milkshake</div><div class="product-desc">Batido de helado y leche con crema, salsa y toppings a elección</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">☕</span><div><div class="product-name">Frapuccino</div><div class="product-desc">Café frío cremoso</div></div></div>
+      </div>
+      <div class="product-card featured">
+        <div class="product-header"><span class="product-icon">🍓</span><div><div class="product-name">Frappe de Frutos Rojos</div><div class="product-desc">Frappe helado de frutos rojos con crema</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍪</span><div><div class="product-name">Frappe de Oreo</div><div class="product-desc">Frappe de Oreo frío y cremoso</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍌</span><div><div class="product-name">Frappe de Banana Split</div><div class="product-desc">Frappe con sabores de banana split</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥤</span><div><div class="product-name">Licuados</div><div class="product-desc">Ananá · Banana · Durazno · Frutilla · Maracuyá — frescos y naturales</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍋</span><div><div class="product-name">Limonada Pink</div><div class="product-desc">Limonada con frutos rojos</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍋</span><div><div class="product-name">Limonada con Menta y Jengibre</div><div class="product-desc">Limonada fresca con menta y jengibre</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍋</span><div><div class="product-name">Limonada</div><div class="product-desc">Limonada natural fría</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍊</span><div><div class="product-name">Jugo de Naranja</div><div class="product-desc">Jugo de naranja natural exprimido</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥤</span><div><div class="product-name">Smoothie</div><div class="product-desc">Smoothie de frutas mixtas</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOSTADOS & DELICIAS -->
+  <div class="tab-panel" id="tab-tostados">
+    <div class="product-grid">
+      <div class="product-card featured">
+        <div class="product-header"><span class="product-icon">🥪</span><div><div class="product-name">Tostado J <span class="badge-star">⭐ Especial</span></div><div class="product-desc">Pan lactal o baguette, jamón, queso, tomate, huevo, palta</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥪</span><div><div class="product-name">Tostado Gringo</div><div class="product-desc">Pan lactal o baguette, panceta crocante, queso cheddar, huevo, tomate, lechuga</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥪</span><div><div class="product-name">Tostado Especial</div><div class="product-desc">Pan lactal o baguette, jamón, queso, tomate, huevo</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥖</span><div><div class="product-name">Baguette Mediterráneo</div><div class="product-desc">Lechuga, bondiola, queso y tomate</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥪</span><div><div class="product-name">Golpeadito</div><div class="product-desc">Pan lactal o baguette, peceto en salsa inglesa, huevo, queso, tomate</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥑</span><div><div class="product-name">Tostada con Palta, Huevo y Semillas</div><div class="product-desc">Tostada saludable con palta, huevo y semillas</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍞</span><div><div class="product-name">Tostadas French x2</div><div class="product-desc">Con frutas frescas</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍞</span><div><div class="product-name">Tostadas de Pan Lactal y Untables x2</div><div class="product-desc">Pan lactal con untables a elección</div></div></div>
+      </div>
+      <div class="product-card featured">
+        <div class="product-header"><span class="product-icon">🥞</span><div><div class="product-name">Torre de Hotcakes</div><div class="product-desc">Con helado y nutella, o frutas y salsa</div></div></div>
+      </div>
+      <div class="product-card featured">
+        <div class="product-header"><span class="product-icon">🧇</span><div><div class="product-name">Waffles</div><div class="product-desc">Con helado y nutella, o frutas con salsa</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥐</span><div><div class="product-name">Medialunas</div><div class="product-desc">Medialunas solas · con Dulce de Leche · con Jamón y Queso</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍓</span><div><div class="product-name">Frutilla con Crema</div><div class="product-desc">Frutillas frescas con crema chantilly</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍑</span><div><div class="product-name">Ensalada de Frutas</div><div class="product-desc">Frutas frescas de temporada</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🎂</span><div><div class="product-name">Mini Cakes</div><div class="product-desc">Pequeños pasteles de la casa</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🫙</span><div><div class="product-name">Yogurt Griego con Frutas y Granola</div><div class="product-desc">Yogurt griego, frutas frescas y granola artesanal</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🫙</span><div><div class="product-name">Yogurt con Cereales</div><div class="product-desc">Yogurt natural con cereales</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROMOS -->
+  <div class="tab-panel" id="tab-promos">
+    <div class="product-grid">
+      <div class="product-card featured">
+        <div class="product-header"><span class="product-icon">🎉</span><div><div class="product-name">Merienda Super J <span class="badge-star">⭐ Completa</span></div><div class="product-desc">La mega promo de merienda de la casa — consultá composición del día</div></div></div>
+      </div>
+      <div class="product-card featured">
+        <div class="product-header"><span class="product-icon">👫</span><div><div class="product-name">Opción A — Para Dos</div><div class="product-desc">Café con leche o licuado, medialunas, tostados JyQ, masas finas, yogurts con cereal y jugo natural</div></div></div>
+      </div>
+      <div class="product-card featured">
+        <div class="product-header"><span class="product-icon">👫</span><div><div class="product-name">Opción B — Para Dos</div><div class="product-desc">Consultá composición del día en nuestro Instagram</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">👨‍👩‍👧</span><div><div class="product-name">Para Tres</div><div class="product-desc">Promo para compartir entre tres — consultá al local</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">👨‍👩‍👧‍👦</span><div><div class="product-name">Para Cuatro</div><div class="product-desc">Promo para compartir entre cuatro — consultá al local</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">☕</span><div><div class="product-name">Café c/Leche con 2 Medialunas</div><div class="product-desc">Café con leche + 2 medialunas</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">☕</span><div><div class="product-name">Café c/Leche con Tostado o Medialunas JyQ</div><div class="product-desc">Café con leche + tostado o medialunas de jamón y queso</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥤</span><div><div class="product-name">Jugo o Limonada con Tostados</div><div class="product-desc">Jugo o limonada + Tostado Especial, Tostado J, Tostado Gringo o Baguette Mediterráneo</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🥤</span><div><div class="product-name">Licuado, Jugo o Limo con Waffle</div><div class="product-desc">Bebida a elección + waffle a elección</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🧒</span><div><div class="product-name">Promo Para Niños</div><div class="product-desc">Promo especial para los más chicos — consultá al local</div></div></div>
+      </div>
+      <div class="product-card">
+        <div class="product-header"><span class="product-icon">🍫</span><div><div class="product-name">Submarino con Medialunas</div><div class="product-desc">Submarino de chocolate + medialunas</div></div></div>
+      </div>
+    </div>
+    <p class="tab-note">📲 Seguinos en <a href="https://www.instagram.com/jlomitosoran/" target="_blank">@jlomitosoran</a> para ver las promos del día y combos especiales</p>
+  </div>
+
+</section>
+
+<!-- HORARIO Y CONTACTO -->
+<section class="horario-section" id="contacto">
+  <div class="horario-inner">
+    <div>
+      <span class="section-tag">Dónde encontrarnos</span>
+      <h2 class="section-title">Horario &<br/><em>Contacto</em></h2>
+      <p class="section-sub" style="margin-bottom:2rem">Estamos todos los días de la semana, mañana, tarde y noche.</p>
+      <div class="contact-items">
+        <a class="contact-item" href="https://wa.me/543878568834" target="_blank">
+          <div class="contact-icon ci-wa">📱</div>
+          <div class="contact-info">
+            <strong>WhatsApp · (387) 856-8834</strong>
+            <span>Escribinos para hacer tu pedido o consultar</span>
+          </div>
+        </a>
+        <div class="contact-item">
+          <div class="contact-icon ci-green">📍</div>
+          <div class="contact-info">
+            <strong>Egues 270 — Orán, Salta</strong>
+            <span>San Ramón de la Nueva Orán, Argentina</span>
+          </div>
+        </div>
+        <a class="contact-item" href="https://www.instagram.com/jlomitosoran/" target="_blank">
+          <div class="contact-icon ci-teal">📸</div>
+          <div class="contact-info">
+            <strong>@jlomitosoran en Instagram</strong>
+            <span>Fotos, especiales del día y novedades</span>
+          </div>
+        </a>
+        <a class="contact-item" href="mailto:augustocastroo38@gmail.com">
+          <div class="contact-icon ci-green">✉️</div>
+          <div class="contact-info">
+            <strong>augustocastroo38@gmail.com</strong>
+            <span>Consultas, eventos y catering</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <div class="horario-card">
+        <div class="horario-title">🕐 Horario de atención</div>
+        <div class="horario-row"><span class="horario-dia">Lunes</span><span class="horario-tiempo">8:00–12:30 · 17:30–01:00</span></div>
+        <div class="horario-row"><span class="horario-dia">Martes</span><span class="horario-tiempo">8:00–12:30 · 17:30–01:00</span></div>
+        <div class="horario-row"><span class="horario-dia">Miércoles</span><span class="horario-tiempo">8:00–12:30 · 17:30–01:00</span></div>
+        <div class="horario-row"><span class="horario-dia">Jueves</span><span class="horario-tiempo">8:00–12:30 · 17:30–01:00</span></div>
+        <div class="horario-row"><span class="horario-dia">Viernes</span><span class="horario-tiempo">8:00–12:30 · 17:30–01:00</span></div>
+        <div class="horario-row"><span class="horario-dia">Sábado</span><span class="horario-tiempo">8:00–12:30 · 17:30–01:00</span></div>
+        <div class="horario-row"><span class="horario-dia">Domingo</span><span class="horario-tiempo">8:00–12:30 · 17:30–01:00</span></div>
+        <div class="open-badge"><span class="open-dot"></span> Abiertos todos los días</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAPA -->
+<div class="map-strip">
+  <h3>📍 Cómo llegar</h3>
+  <p>Egues 270, San Ramón de la Nueva Orán, Salta, Argentina</p>
+  <div class="map-container">
+    <iframe src="https://www.google.com/maps?q=Egues+270+Oran+Salta+Argentina&output=embed" frameborder="0" allowfullscreen loading="lazy" title="Ubicación J Lomitos Orán"></iframe>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-band">
+  <h2>¿Tenés hambre? Hacé tu pedido ahora 🥩</h2>
+  <p>Abiertos todos los días · Mañana 8:00–12:30 · Tarde-noche 17:30–01:00</p>
+  <div class="cta-btns">
+    <a href="https://wa.me/543878568834?text=Hola!%20Quiero%20hacer%20un%20pedido" class="cta-wa" target="_blank">📲 Pedí por WhatsApp</a>
+    <a href="https://www.instagram.com/jlomitosoran/" class="cta-ig2" target="_blank">📸 Ver Instagram</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-wrap">
+        <img class="footer-logo" src="assets/Logo J.jpg" alt="Logo" onerror="this.style.display='none'" />
+        <span class="footer-brand">J <span>Lomitos</span> Orán</span>
+      </div>
+      <p class="footer-desc">Comida rápida de calidad y cafetería de especialidad en el corazón de Orán, Salta. Abiertos todos los días para darte lo mejor.</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/jlomitosoran/" target="_blank" title="Instagram">📸</a>
+        <a href="https://wa.me/543878568834" target="_blank" title="WhatsApp">📱</a>
+        <a href="mailto:augustocastroo38@gmail.com" title="Email">✉️</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Menú</h4>
+      <ul>
+        <li>Lomitos</li><li>Hamburguesas</li><li>Minutas al plato</li>
+        <li>Cafetería</li><li>Licuados & Jugos</li><li>Copas heladas</li><li>Tostados</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <ul>
+        <li>Egues 270, Orán</li><li>Salta, Argentina</li>
+        <li>(387) 856-8834</li><li>Lun–Dom 8:00–12:30</li><li>Lun–Dom 17:30–01:00</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 J Lomitos Orán. Todos los derechos reservados.</span>
+    <span style="color:rgba(255,255,255,.35)">Orán · Salta · Argentina 🇦🇷</span>
+  </div>
+</footer>
+
+<!-- WhatsApp flotante -->
+<a href="https://wa.me/543878568834?text=Hola!%20Quiero%20hacer%20un%20pedido" class="wa-float" target="_blank" title="Pedí por WhatsApp">📲</a>
+<div class="wa-tooltip">Pedí por WhatsApp</div>
+
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function toggleMenu() {
+    const nl = document.querySelector('.nav-links');
+    const open = nl.style.display === 'flex';
+    nl.style.display = open ? 'none' : 'flex';
+    nl.style.flexDirection = 'column';
+    nl.style.position = 'absolute';
+    nl.style.top = '70px'; nl.style.left = '0'; nl.style.right = '0';
+    nl.style.background = 'var(--green-dark)';
+    nl.style.padding = '1.5rem 5%'; nl.style.gap = '1.2rem';
+  }
+
+  // Animación de entrada para cards
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.menu-card, .contact-item, .gallery-item').forEach(el => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    obs.observe(el);
+  });
+</script>
+
+</body>
+</html>
